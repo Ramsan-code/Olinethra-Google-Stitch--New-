@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>Olinethra | Case Studies &amp; Production Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
+    ::-webkit-scrollbar { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004fcb",
+            "primary-container": "#0265ff",
+            "on-primary": "#ffffff",
+            "secondary": "#a33e00",
+            "secondary-container": "#fe6a17",
+            "on-secondary": "#ffffff",
+            "tertiary": "#006178",
+            "tertiary-container": "#007c98",
+            "on-tertiary": "#ffffff",
+            "background": "#faf8ff",
+            "surface": "#faf8ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "surface-container": "#ebedfc",
+            "surface-container-high": "#e5e7f6",
+            "on-surface": "#171b26",
+            "on-surface-variant": "#424656",
+            "outline": "#727687",
+            "outline-variant": "#c2c6d8"
+          },
+          fontFamily: {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "code-sm": ["Inter"],
+            "label-md": ["Inter"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary selection:text-white">
+<!-- Persistent Global Header Navigation -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-surface-container shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+<div class="h-20 max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between gap-6">
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-2.5 group" href="index.html">
+<img alt="Olinethra logo" class="w-10 h-10 rounded-lg object-cover shadow-[0_0_18px_rgba(2,101,255,0.35)]" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<div class="flex flex-col">
+<span class="font-headline-sm font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">OLINETHRA</span>
+<span class="font-code-sm text-xs text-tertiary uppercase tracking-wider -mt-1">Engineering &amp; AI</span>
+</div>
+</a>
+<div class="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low border border-surface-container text-xs">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary-container"></span>
+</span>
+<span class="font-code-sm text-on-surface-variant font-medium">Production Nodes: 48 Online</span>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-7">
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="index.html">Services</a>
+<a class="text-sm font-bold text-primary border-b-2 border-primary py-1" href="project.html">Projects</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="insights.html">Insights</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="playground.html">Playground</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="team.html">Team</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="careers.html">Careers</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="about.html">About</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold text-primary hover:bg-surface-container transition-colors" href="admin.html">Admin Portal</a>
+<a class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-secondary-container text-white text-xs font-semibold shadow-[0_4px_16px_rgba(254,106,23,0.3)] hover:opacity-95 transition-all" href="about.html#contact">Schedule Consultation</a>
+</div>
+</div>
+</header>
+<main class="w-full pt-20">
+<!-- Hero / Telemetry Filter Stage -->
+<section class="relative w-full overflow-hidden bg-surface-container-low/60 py-16 px-6 md:px-10 border-b border-surface-container">
+<div class="absolute -top-32 right-10 w-96 h-96 rounded-full bg-primary/10 blur-[100px] pointer-events-none"></div>
+<div class="absolute top-24 left-10 w-80 h-80 rounded-full bg-secondary-container/10 blur-[100px] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto flex flex-col gap-8 relative z-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="flex flex-col gap-3 max-w-2xl">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container w-fit border border-surface-container-high">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-code-sm text-xs text-primary uppercase font-bold tracking-wider">PROJECT DEPLOYMENTS // 2026 ARCHIVE</span>
+</div>
+<h1 class="font-headline-xl text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight leading-tight">
+              Mission-Critical Systems <span class="bg-gradient-to-r from-primary to-secondary-container bg-clip-text text-transparent">Engineered For Zero Failure</span>
+</h1>
+<p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
+              Explore high-throughput distributed architectures, autonomous AI pipelines, and financial ledger deployments built for global scale.
+            </p>
+</div>
+<!-- Real-time Aggregate Metric Badge -->
+<div class="grid grid-cols-3 gap-3 p-4 rounded-xl bg-surface-container-lowest border border-surface-container shadow-sm">
+<div>
+<span class="text-xs text-outline font-medium block">Global P99</span>
+<span class="font-headline-md text-xl font-bold text-primary">0.8ms</span>
+</div>
+<div class="border-l border-surface-container pl-3">
+<span class="text-xs text-outline font-medium block">Uptime Target</span>
+<span class="font-headline-md text-xl font-bold text-secondary-container">99.999%</span>
+</div>
+<div class="border-l border-surface-container pl-3">
+<span class="text-xs text-outline font-medium block">Vol Processed</span>
+<span class="font-headline-md text-xl font-bold text-tertiary">$4.2B/wk</span>
+</div>
+</div>
+</div>
+<!-- Filter and Search Strip -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-4 p-2 rounded-xl bg-surface-container-lowest border border-surface-container shadow-sm">
+<div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0" id="filter-bar">
+<button class="filter-tab px-4 py-2 rounded-lg text-xs font-semibold bg-primary text-white transition-all" onclick="filterProjects('all', this)">All Deployments (6)</button>
+<button class="filter-tab px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" onclick="filterProjects('fintech', this)">Fintech &amp; Ledgers</button>
+<button class="filter-tab px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" onclick="filterProjects('ai', this)">Applied AI &amp; RAG</button>
+<button class="filter-tab px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" onclick="filterProjects('cloud', this)">Cloud &amp; Distributed</button>
+<button class="filter-tab px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" onclick="filterProjects('health', this)">Clinical &amp; HIPAA</button>
+</div>
+<div class="relative w-full md:w-72">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-2 text-xs rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline border border-transparent focus:border-primary focus:outline-none" id="project-search" oninput="searchProjects(this.value)" placeholder="Search stack, client, or RFC..." type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Case Studies Bento Grid -->
+<section class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-container">
+<!-- Case Study 1 -->
+<article class="project-card group bg-surface-container-lowest rounded-2xl border border-surface-container overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="fintech" data-stack="Rust Next.js Kafka Redis WebSocket">
+<div>
+<div class="relative h-56 w-full overflow-hidden bg-slate-900">
+<img alt="FinScale algorithmic terminal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPQzouRoqcmcfmVc9xo_6Oasq11Hu7GO98a9Nh8X2s_xnXS4fRt343-KzF61b1fZQ4F0UPYpfKxnZfcDXqUwzsWMLLvbsxIPLTRK1QDUzAQYW8y-BWqwkF3IVx5Z50j8fLUsmpc1uSYBSLENCY7EkvO3ZILdglXneuyzg7OC-ENUSJfXC9t8oUq8mx2_-tSP84T4Y_NK1nVSoGYHbzSHtVceEK-oBBSS4xqGKwDSQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-[11px] font-bold text-white uppercase tracking-wider">Fintech &amp; HFT</span>
+<span class="absolute bottom-3 left-3 font-code-sm text-xs text-white/90">FINSCALE GLOBAL BANK</span>
+</div>
+<div class="p-6 flex flex-col gap-3">
+<h3 class="font-headline-md text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Sub-Millisecond Multi-Asset Ledger</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Re-architected cross-border equity settlements, moving from 4-hour batch reconciliations to an event-sourced distributed Kafka mesh with zero write conflicts.
+              </p>
+<div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">P99 Latency</span>
+<span class="font-headline-sm text-lg font-bold text-secondary-container block">0.8ms</span>
+</div>
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Weekly Vol</span>
+<span class="font-headline-sm text-lg font-bold text-primary block">$4.2B</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 pt-0 flex flex-col gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Rust</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Kafka</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Next.js 15</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Redis Cluster</span>
+</div>
+<a class="inline-flex items-center justify-between text-xs font-bold text-primary hover:text-primary-container pt-2 border-t border-surface-container" href="about.html#contact">
+<span>Inspect Architecture RFC</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Case Study 2 -->
+<article class="project-card group bg-surface-container-lowest rounded-2xl border border-surface-container overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="health" data-stack="Python Go WebRTC AWS KMS">
+<div>
+<div class="relative h-56 w-full overflow-hidden bg-slate-900">
+<img alt="Aether Health Telemetry" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNLvAV02lzH2Nyn1iSXjDo0zE3ClifhjlmzxjtbMonnbBj6SQaInh9jhRy23DPu5h4b-u0k6B7KGci4x7orJxdtRnsHadRhV_oIyYb2XBZ7n6PuQfOVV4F9zTVZ_yCtJDbwnDLbIIpWySoPV41kVAhY8W3r9qoJuy_LgMv1My8xDWehrkyVVYVUp8rWPmxAif38b2jPsmTBVNMgP_Gc1LdjcM57CSiKL1dvUgMWMc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-[11px] font-bold text-white uppercase tracking-wider">Clinical AI</span>
+<span class="absolute bottom-3 left-3 font-code-sm text-xs text-white/90">AETHER HEALTH SYSTEMS</span>
+</div>
+<div class="p-6 flex flex-col gap-3">
+<h3 class="font-headline-md text-xl font-bold text-on-surface group-hover:text-primary transition-colors">HIPAA-Hardened Encrypted Consultation Mesh</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Real-time telemedicine platform supporting 500k+ monthly consultations with autonomous diagnostic summarization and end-to-end encrypted biometric telemetry.
+              </p>
+<div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Triage Speed</span>
+<span class="font-headline-sm text-lg font-bold text-primary block">4.2x Faster</span>
+</div>
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">SLA Guarantee</span>
+<span class="font-headline-sm text-lg font-bold text-tertiary block">99.999%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 pt-0 flex flex-col gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Python</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Go</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">WebRTC</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">AWS KMS</span>
+</div>
+<a class="inline-flex items-center justify-between text-xs font-bold text-primary hover:text-primary-container pt-2 border-t border-surface-container" href="about.html#contact">
+<span>Inspect Architecture RFC</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Case Study 3 -->
+<article class="project-card group bg-surface-container-lowest rounded-2xl border border-surface-container overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="ai" data-stack="PyTorch Ray Kafka Kubernetes PostgreSQL">
+<div>
+<div class="relative h-56 w-full overflow-hidden bg-slate-900">
+<img alt="Nexus Autonomous Mesh" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOsWW7efpnrnxhAQWPnedZId5mH4_VjgFvP0A3f0uUmZSXN6Rke_Mg_WPvW_v16114aOifiXTSRWhY0L_4rmR84pepci57a5o1yPL8jBdlu_9dQEZA_ES7uqXq7xRW2LIyAtK0NZ3qKoozytx1l23MIw9GrklZzGSpOZdb54Fs3Fq8mzh4H1h1zzEra-MNh7l-dreWC1kjF9vktj-BLnyNZAd0n7TUe7kLVSC3fZw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-[11px] font-bold text-white uppercase tracking-wider">Supply Chain ML</span>
+<span class="absolute bottom-3 left-3 font-code-sm text-xs text-white/90">NEXUS MULTIMODAL LOGISTICS</span>
+</div>
+<div class="p-6 flex flex-col gap-3">
+<h3 class="font-headline-md text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Predictive Digital Twin Routing Mesh</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Dynamic reinforcement learning engine evaluating 18M checkpoints daily across maritime, rail, and land corridors to dynamically circumvent supply chain choke points.
+              </p>
+<div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Transit Delays</span>
+<span class="font-headline-sm text-lg font-bold text-secondary-container block">-34% Less</span>
+</div>
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Inference Cost</span>
+<span class="font-headline-sm text-lg font-bold text-primary block">-48% AWS</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 pt-0 flex flex-col gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">PyTorch</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Ray Cluster</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Kafka</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">K8s</span>
+</div>
+<a class="inline-flex items-center justify-between text-xs font-bold text-primary hover:text-primary-container pt-2 border-t border-surface-container" href="about.html#contact">
+<span>Inspect Architecture RFC</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Case Study 4 -->
+<article class="project-card group bg-surface-container-lowest rounded-2xl border border-surface-container overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="cloud" data-stack="Terraform Go ArgoCD Cilium Multi-Cloud">
+<div>
+<div class="relative h-56 w-full overflow-hidden bg-slate-900">
+<img alt="Multi-Cloud Mesh" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACe-_LDaH5lAg5Hw1UENuaJzOjrpvuoBa36pcKkevKVFwyx-4jj5arebAw-b8yeP15htK7GntiKIULDmWAirCfUUt693SNek-JkIaGZImsGAMVKRe0kBmi4tcSJc34LqHm0O1XVTpbhh8q2-uI-mT3hok9Dna2DKvZmMF58-d2QtgJpE_nVgr5Et6-4byL9fsRHdlyYFFoNh1Q2wusEre18-pr5rQs6cZv1KLqWWw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-[11px] font-bold text-white uppercase tracking-wider">Multi-Cloud Mesh</span>
+<span class="absolute bottom-3 left-3 font-code-sm text-xs text-white/90">HORIZON DEFENSE &amp; FINTECH</span>
+</div>
+<div class="p-6 flex flex-col gap-3">
+<h3 class="font-headline-md text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Tri-Cloud Active-Active K8s Mesh</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Zero-downtime multi-cloud orchestrator balancing live workloads dynamically across AWS, GCP, and Azure nodes with automatic BGP Anycast failover under 60 seconds.
+              </p>
+<div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Failover RTO</span>
+<span class="font-headline-sm text-lg font-bold text-secondary-container block">&lt;45s</span>
+</div>
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Active Regions</span>
+<span class="font-headline-sm text-lg font-bold text-primary block">14 Global</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 pt-0 flex flex-col gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Terraform</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Cilium eBPF</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">ArgoCD</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Golang</span>
+</div>
+<a class="inline-flex items-center justify-between text-xs font-bold text-primary hover:text-primary-container pt-2 border-t border-surface-container" href="about.html#contact">
+<span>Inspect Architecture RFC</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Case Study 5 -->
+<article class="project-card group bg-surface-container-lowest rounded-2xl border border-surface-container overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="ai" data-stack="Qdrant vLLM Next.js TypeScript FastAPI">
+<div>
+<div class="relative h-56 w-full overflow-hidden bg-slate-900">
+<img alt="Vector Engine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHLmIlCCHUf2Ng2KveVgfFeVeHhZL7fwym70PlBiyI76YwghYpkypBX0Hnjo99PZOMudSL3ewqI3tGaCurK2CVajdIE5bQDYE35IwlyZfjGBna7-AZQZcXfjlBmym8c9pIxCMMFTpkPHv_7QlImMwUZ_loMzJLze0zqrjoeZOHKf6EdsUsRVkz8sMIbcKaKqrcCNlgdszUsfECdY7BEXH1VjQXBGYp9kdaNXp3Yig"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-[11px] font-bold text-white uppercase tracking-wider">Enterprise RAG</span>
+<span class="absolute bottom-3 left-3 font-code-sm text-xs text-white/90">BIOSYNAPSE PHARMA</span>
+</div>
+<div class="p-6 flex flex-col gap-3">
+<h3 class="font-headline-md text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Neural Biomedical Discovery Assistant</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Domain fine-tuned generative pipeline indexing 40M clinical literature records with strict hallucination containment (&lt;0.6%) and hardware-optimized vLLM streaming.
+              </p>
+<div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Hallucination Floor</span>
+<span class="font-headline-sm text-lg font-bold text-primary block">&lt;0.6% Max</span>
+</div>
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">TTFT Streaming</span>
+<span class="font-headline-sm text-lg font-bold text-tertiary block">28ms TTFT</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 pt-0 flex flex-col gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Qdrant Vector</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">vLLM</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Next.js 15</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">TensorRT</span>
+</div>
+<a class="inline-flex items-center justify-between text-xs font-bold text-primary hover:text-primary-container pt-2 border-t border-surface-container" href="about.html#contact">
+<span>Inspect Architecture RFC</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Case Study 6 -->
+<article class="project-card group bg-surface-container-lowest rounded-2xl border border-surface-container overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="cloud" data-stack="Next.js GraphQL Cloudflare Edge Rust">
+<div>
+<div class="relative h-56 w-full overflow-hidden bg-slate-900">
+<img alt="Novus Edge Commerce" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD-Hv_QDE1hl40tB-nc0E5aBry1MnG6ooCql0acKOlXaupx-aDFBRz3siQhANc-cXxXad9lExwR7iSpQ_pwTr5sh3kjQfFIdvFhDrIPg3a3BuVw4LIdHYlpRNeIdYhD6zxf71LjIwLQIaL9t7a5Z6YEHTsmSCW2ZNG-vtKodyYeQZjVHa3qIv56t1_GnbP__buJqzS-xU0MJhM6dZcodGoRLEgv_dkCeOhrMlJLqc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-[11px] font-bold text-white uppercase tracking-wider">Edge Web</span>
+<span class="absolute bottom-3 left-3 font-code-sm text-xs text-white/90">NOVUS GLOBAL COMMERCE</span>
+</div>
+<div class="p-6 flex flex-col gap-3">
+<h3 class="font-headline-md text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Ultra-Low-Latency Edge Storefront</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Headless retail platform achieving 100/100 Core Web Vitals across 220 edge regions, decoupling transaction processing to absorb 50k req/s flash sale shocks.
+              </p>
+<div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">First Paint</span>
+<span class="font-headline-sm text-lg font-bold text-primary block">&lt;42ms FCP</span>
+</div>
+<div>
+<span class="text-[11px] text-outline uppercase font-semibold">Checkout Lift</span>
+<span class="font-headline-sm text-lg font-bold text-secondary-container block">+34% Converted</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 pt-0 flex flex-col gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">React 19 RSC</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Cloudflare Workers</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">GraphQL</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-xs text-on-surface-variant font-medium">Rust</span>
+</div>
+<a class="inline-flex items-center justify-between text-xs font-bold text-primary hover:text-primary-container pt-2 border-t border-surface-container" href="about.html#contact">
+<span>Inspect Architecture RFC</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+</div>
+</section>
+<!-- Bottom Conversion Strip -->
+<section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
+<div class="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-primary to-primary-container text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+<div class="flex flex-col gap-3 max-w-2xl">
+<span class="font-code-sm text-xs text-white/80 uppercase tracking-widest font-bold">Principal Systems Review</span>
+<h2 class="font-headline-lg text-3xl font-extrabold tracking-tight">Need an Architectural Blueprint for Your Scale?</h2>
+<p class="font-body-md text-sm md:text-base text-white/90">
+            Book a 45-minute technical discovery session directly with our Principal Architects. Zero sales intermediaries—just specs, latency models, and execution sprints.
+          </p>
+</div>
+<div class="flex items-center gap-4 shrink-0">
+<a class="px-6 py-3 rounded-xl bg-secondary-container text-white font-semibold text-sm shadow-lg hover:opacity-95 transition-all" href="about.html#contact">Schedule Discovery Call</a>
+<a class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm transition-colors" href="insights.html">Read Architecture RFCs</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-surface-container py-12 px-6 md:px-10">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-on-surface-variant">
+<div class="flex items-center gap-3">
+<img alt="Olinethra logo" class="w-6 h-6 rounded object-cover" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<span class="font-bold text-on-surface">OLINETHRA TECHNOLOGIES</span>
+<span>• SOC-2 Type II Certified &amp; Verifiable Production Systems</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-primary transition-colors" href="project.html">Projects</a>
+<a class="hover:text-primary transition-colors" href="insights.html">Insights</a>
+<a class="hover:text-primary transition-colors" href="playground.html">Playground</a>
+<a class="hover:text-primary transition-colors" href="team.html">Team</a>
+<a class="hover:text-primary transition-colors" href="careers.html">Careers</a>
+<a class="hover:text-primary transition-colors" href="admin.html">Admin</a>
+</div>
+</div>
+</footer>
+<script>
+    function filterProjects(cat, btn) {
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.className = 'filter-tab px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all';
+      });
+      btn.className = 'filter-tab px-4 py-2 rounded-lg text-xs font-semibold bg-primary text-white transition-all';
+      
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function searchProjects(q) {
+      const term = q.toLowerCase().trim();
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        const desc = card.querySelector('p').innerText.toLowerCase();
+        const stack = (card.getAttribute('data-stack') || '').toLowerCase();
+        if (title.includes(term) || desc.includes(term) || stack.includes(term)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

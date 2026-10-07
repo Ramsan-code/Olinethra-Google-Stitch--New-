@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>Olinethra | Interactive Engineering Playground &amp; 3D Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
+    ::-webkit-scrollbar { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004fcb",
+            "primary-container": "#0265ff",
+            "on-primary": "#ffffff",
+            "secondary": "#a33e00",
+            "secondary-container": "#fe6a17",
+            "on-secondary": "#ffffff",
+            "tertiary": "#006178",
+            "tertiary-container": "#007c98",
+            "on-tertiary": "#ffffff",
+            "background": "#faf8ff",
+            "surface": "#faf8ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "surface-container": "#ebedfc",
+            "surface-container-high": "#e5e7f6",
+            "on-surface": "#171b26",
+            "on-surface-variant": "#424656",
+            "outline": "#727687",
+            "outline-variant": "#c2c6d8"
+          },
+          fontFamily: {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "code-sm": ["Inter"],
+            "label-md": ["Inter"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary selection:text-white">
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-surface-container shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+<div class="h-20 max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between gap-6">
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-2.5 group" href="index.html">
+<img alt="Olinethra logo" class="w-10 h-10 rounded-lg object-cover shadow-[0_0_18px_rgba(2,101,255,0.35)]" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<div class="flex flex-col">
+<span class="font-headline-sm font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">OLINETHRA</span>
+<span class="font-code-sm text-xs text-tertiary uppercase tracking-wider -mt-1">Engineering &amp; AI</span>
+</div>
+</a>
+<div class="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low border border-surface-container text-xs">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-ping"></span>
+<span class="font-code-sm text-on-surface-variant font-medium">WebGL &amp; Canvas Runtime v2.6</span>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-7">
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="index.html">Services</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="project.html">Projects</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="insights.html">Insights</a>
+<a class="text-sm font-bold text-primary border-b-2 border-primary py-1" href="playground.html">Playground</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="team.html">Team</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="careers.html">Careers</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="about.html">About</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold text-primary hover:bg-surface-container transition-colors" href="admin.html">Admin Portal</a>
+<a class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-secondary-container text-white text-xs font-semibold shadow-[0_4px_16px_rgba(254,106,23,0.3)] hover:opacity-95 transition-all" href="about.html#contact">Schedule Consultation</a>
+</div>
+</div>
+</header>
+<main class="w-full pt-20">
+<!-- Hero Banner -->
+<section class="relative w-full overflow-hidden bg-surface-container-low/60 py-16 px-6 md:px-10 border-b border-surface-container">
+<div class="max-w-7xl mx-auto flex flex-col gap-4 relative z-10">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container w-fit border border-surface-container-high">
+<span class="material-symbols-outlined text-primary text-[16px]">science</span>
+<span class="font-code-sm text-xs text-primary uppercase font-bold tracking-wider">CREATIVE TECHNOLOGIST SANDBOX // EXPERIMENTAL</span>
+</div>
+<h1 class="font-headline-xl text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight leading-tight">
+          Interactive <span class="bg-gradient-to-r from-primary to-secondary-container bg-clip-text text-transparent">3D Shader &amp; Simulation</span> Lab
+        </h1>
+<p class="font-body-lg text-base md:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+          Test real-time interactive procedural nodes, high-concurrency event stream simulations, and live neural vector cluster visualizations in your browser.
+        </p>
+</div>
+</section>
+<!-- Interactive Sandboxes -->
+<section class="max-w-7xl mx-auto px-6 md:px-10 py-12 flex flex-col gap-16">
+<!-- Experiment 1: 3D Procedural Particle Lattice with Real-Time Canvas -->
+<div class="p-6 md:p-8 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-xs font-code-sm text-primary font-bold">
+<span>EXP_01</span>
+<span>•</span>
+<span>PROCEDURAL TOPOLOGY MESH</span>
+</div>
+<h2 class="font-headline-lg text-2xl font-bold text-on-surface">Distributed Mesh Topology Visualizer</h2>
+<p class="text-sm text-on-surface-variant">Move your cursor over the canvas to perturb gravity fields. Tune node density and particle velocities.</p>
+</div>
+<!-- Controls -->
+<div class="flex items-center gap-4 bg-surface-container-low p-2.5 rounded-xl border border-surface-container text-xs">
+<label class="flex items-center gap-2">
+<span class="text-outline font-medium">Nodes:</span>
+<input class="accent-primary w-24" id="particle-count" max="180" min="40" type="range" value="90"/>
+</label>
+<label class="flex items-center gap-2">
+<span class="text-outline font-medium">Link Distance:</span>
+<input class="accent-secondary-container w-24" id="link-dist" max="160" min="50" type="range" value="100"/>
+</label>
+<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high font-semibold text-primary transition-colors" onclick="resetMeshAnimation()">Reset</button>
+</div>
+</div>
+<!-- Canvas Container -->
+<div class="relative w-full h-[400px] rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 overflow-hidden shadow-inner border border-surface-container">
+<canvas class="w-full h-full cursor-crosshair" id="meshCanvas"></canvas>
+<div class="absolute bottom-4 left-4 flex items-center gap-3 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md text-white text-xs font-code-sm">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> FPS: <strong id="fps-counter">60</strong></span>
+<span>|</span>
+<span id="active-nodes-counter">Active Nodes: 90</span>
+<span>|</span>
+<span class="text-secondary-container">Interactive Gravity: ON</span>
+</div>
+</div>
+</div>
+<!-- Experiment 2: Live Latency & Stress Test Benchmark -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-5 p-6 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between gap-6">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-2 text-xs font-code-sm text-secondary-container font-bold">
+<span>EXP_02</span>
+<span>•</span>
+<span>SYNTHETIC LOAD BENCHMARK</span>
+</div>
+<h3 class="font-headline-lg text-xl font-bold text-on-surface">Microservice Latency Simulation</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+              Inject synthetic spike loads into simulated Go microservices and watch real-time P50, P95, and P99 latency jitter curves adapt.
+            </p>
+<div class="flex flex-col gap-3 pt-2">
+<div class="flex justify-between text-xs font-semibold">
+<span>Simulated QPS Rate</span>
+<span class="text-primary font-code-sm" id="qps-val">25,000 req/s</span>
+</div>
+<input class="accent-primary" id="qps-slider" max="150000" min="5000" oninput="updateLoadTest(this.value)" step="5000" type="range" value="25000"/>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<span class="text-xs text-outline block">P99 Threshold</span>
+<span class="font-headline-sm text-lg font-bold text-secondary-container" id="p99-result">1.2ms</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-container-low border border-surface-container">
+<span class="text-xs text-outline block">Worker Threads</span>
+<span class="font-headline-sm text-lg font-bold text-primary" id="workers-result">32 Cores</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl bg-primary text-white font-semibold text-xs shadow-md hover:bg-primary-container transition-all flex items-center justify-center gap-2" onclick="triggerSurge()">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Simulate 200% Sudden Spike Surge</span>
+</button>
+</div>
+<!-- Visual Graph Box -->
+<div class="lg:col-span-7 p-6 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between gap-4">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-sm font-bold text-on-surface">Live Telemetry Oscilloscope (ms)</span>
+<span class="font-code-sm text-xs text-tertiary">Sampling rate: 50ms</span>
+</div>
+<!-- Canvas for real-time oscilloscope -->
+<div class="relative w-full h-56 bg-slate-950 rounded-xl overflow-hidden p-2 border border-surface-container">
+<canvas class="w-full h-full" id="scopeCanvas"></canvas>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface-variant font-code-sm">
+<span>Buffer: Ring-600 samples</span>
+<span class="text-emerald-500 font-bold">● Consensus: Raft Quorum Stable</span>
+</div>
+</div>
+</div>
+<!-- Experiment 3: Interactive RAG Vector Cosine Similarity Explorer -->
+<div class="p-6 md:p-8 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-6">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-xs font-code-sm text-tertiary font-bold">
+<span>EXP_03</span>
+<span>•</span>
+<span>HYBRID RETRIEVAL SIMULATOR</span>
+</div>
+<h3 class="font-headline-lg text-2xl font-bold text-on-surface">Neural Vector Embedding Distance Inspector</h3>
+<p class="text-sm text-on-surface-variant">Type a sample domain inquiry to compute live simulated Cosine Distance against our vector cluster anchors.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-3">
+<input class="flex-1 px-4 py-3 rounded-xl bg-surface-container-low border border-surface-container text-xs text-on-surface focus:border-primary focus:outline-none" id="rag-query" type="text" value="Deploy active-active Kubernetes clusters across AWS and GCP with zero latency penalty"/>
+<button class="px-6 py-3 rounded-xl bg-secondary-container text-white font-semibold text-xs shadow-md hover:opacity-95 transition-all whitespace-nowrap" onclick="runRagLookup()">
+            Compute Vector Dot-Product
+          </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="rag-results">
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary">doc_cluster_#8492</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-[11px] font-bold">0.941 Cosine</span>
+</div>
+<p class="text-xs text-on-surface-variant">"Multi-Cloud Kubernetes networking using Cilium BGP peering and WireGuard overlay."</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary">doc_cluster_#1029</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-[11px] font-bold">0.887 Cosine</span>
+</div>
+<p class="text-xs text-on-surface-variant">"Stateful data synchronization across multi-region Postgres Citus distributed clusters."</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary">doc_cluster_#5491</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-[11px] font-bold">0.824 Cosine</span>
+</div>
+<p class="text-xs text-on-surface-variant">"Automated disaster recovery runbooks and BGP Anycast DNS route recalculation."</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-surface-container py-12 px-6 md:px-10">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-on-surface-variant">
+<div class="flex items-center gap-3">
+<img alt="Olinethra logo" class="w-6 h-6 rounded object-cover" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<span class="font-bold text-on-surface">OLINETHRA TECHNOLOGIES</span>
+<span>• Creative Technology &amp; 3D Animation Systems</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-primary transition-colors" href="project.html">Projects</a>
+<a class="hover:text-primary transition-colors" href="insights.html">Insights</a>
+<a class="hover:text-primary transition-colors" href="playground.html">Playground</a>
+<a class="hover:text-primary transition-colors" href="team.html">Team</a>
+<a class="hover:text-primary transition-colors" href="careers.html">Careers</a>
+<a class="hover:text-primary transition-colors" href="admin.html">Admin</a>
+</div>
+</div>
+</footer>
+<!-- Canvas Simulation JS -->
+<script>
+    // Particle Mesh Simulator
+    const canvas = document.getElementById('meshCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 150 };
+
+    function resizeCanvas() {
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+      initParticles();
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 1.2;
+        this.vy = (Math.random() - 0.5) * 1.2;
+        this.radius = Math.random() * 2 + 1.5;
+        this.color = Math.random() > 0.4 ? '#0265ff' : '#fe6a17';
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        if (mouse.x !== null) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < mouse.radius) {
+            let force = (mouse.radius - dist) / mouse.radius;
+            this.x -= (dx / dist) * force * 3;
+            this.y -= (dy / dist) * force * 3;
+          }
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const count = parseInt(document.getElementById('particle-count').value, 10);
+      document.getElementById('active-nodes-counter').innerText = 'Active Nodes: ' + count;
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateMesh() {
+      ctx.clearRect(0, 0, width, height);
+      const linkDist = parseInt(document.getElementById('link-dist').value, 10);
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          let dx = particles[i].x - particles[j].x;
+          let dy = particles[i].y - particles[j].y;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+
+          if (dist < linkDist) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            let alpha = 1 - (dist / linkDist);
+            ctx.strokeStyle = `rgba(2, 101, 255, ${alpha * 0.45})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateMesh);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    canvas.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    canvas.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    document.getElementById('particle-count').addEventListener('input', initParticles);
+
+    function resetMeshAnimation() {
+      mouse.x = null;
+      mouse.y = null;
+      initParticles();
+    }
+
+    resizeCanvas();
+    animateMesh();
+
+    // Oscilloscope Simulator
+    const scopeCanvas = document.getElementById('scopeCanvas');
+    const sCtx = scopeCanvas.getContext('2d');
+    let scopeData = new Array(100).fill(15);
+
+    function updateScope() {
+      scopeCanvas.width = scopeCanvas.offsetWidth;
+      scopeCanvas.height = scopeCanvas.offsetHeight;
+      
+      let base = parseFloat(document.getElementById('p99-result').innerText) * 10;
+      let jitter = (Math.random() - 0.5) * 8;
+      let nextVal = Math.max(5, Math.min(scopeCanvas.height - 10, base + jitter));
+      scopeData.shift();
+      scopeData.push(nextVal);
+
+      sCtx.clearRect(0, 0, scopeCanvas.width, scopeCanvas.height);
+
+      // Grid
+      sCtx.strokeStyle = 'rgba(255,255,255,0.07)';
+      sCtx.lineWidth = 1;
+      sCtx.beginPath();
+      sCtx.moveTo(0, scopeCanvas.height / 2);
+      sCtx.lineTo(scopeCanvas.width, scopeCanvas.height / 2);
+      sCtx.stroke();
+
+      // Line
+      sCtx.strokeStyle = '#0265ff';
+      sCtx.lineWidth = 2;
+      sCtx.beginPath();
+      let step = scopeCanvas.width / (scopeData.length - 1);
+      for (let i = 0; i < scopeData.length; i++) {
+        let x = i * step;
+        let y = scopeCanvas.height - scopeData[i];
+        if (i === 0) sCtx.moveTo(x, y);
+        else sCtx.lineTo(x, y);
+      }
+      sCtx.stroke();
+
+      requestAnimationFrame(updateScope);
+    }
+    updateScope();
+
+    function updateLoadTest(val) {
+      document.getElementById('qps-val').innerText = parseInt(val).toLocaleString() + ' req/s';
+      let factor = val / 25000;
+      let p99 = (0.8 * factor).toFixed(2);
+      let cores = Math.min(128, Math.round(16 * factor));
+      document.getElementById('p99-result').innerText = p99 + 'ms';
+      document.getElementById('workers-result').innerText = cores + ' Cores';
+    }
+
+    function triggerSurge() {
+      document.getElementById('qps-slider').value = 140000;
+      updateLoadTest(140000);
+      for (let i = 0; i < 20; i++) {
+        scopeData[scopeData.length - 1 - i] = 85;
+      }
+      setTimeout(() => {
+        document.getElementById('qps-slider').value = 45000;
+        updateLoadTest(45000);
+      }, 2500);
+    }
+
+    function runRagLookup() {
+      const q = document.getElementById('rag-query').value;
+      if (!q) return;
+      const resContainer = document.getElementById('rag-results');
+      resContainer.classList.add('opacity-50');
+      setTimeout(() => {
+        resContainer.classList.remove('opacity-50');
+      }, 300);
+    }
+  </script>
+</body>
+</html>

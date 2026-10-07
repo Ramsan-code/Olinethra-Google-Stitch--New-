@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olinethra Project - Consolidated</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #faf8ff;
+            color: #171b26;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { font-size: 2.5em; margin-bottom: 20px; color: #004fcb; }
+        .description { font-size: 1.1em; margin-bottom: 40px; line-height: 1.6; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .card h3 {
+            color: #0265ff;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+        .card p { color: #727687; margin-bottom: 15px; }
+        .card-link {
+            display: inline-block;
+            color: #004fcb;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: #f2f3ff;
+            transition: background 0.2s;
+        }
+        .card-link:hover { background: #ebedfc; }
+        .screenshot-preview {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7f6;
+            color: #727687;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Olinethra Project</h1>
+        <div class="description">
+            <p>Consolidated project pages featuring case studies and production architecture documentation.</p>
+            <p>This index provides access to all project modules (A through G) with their respective code and screenshots.</p>
+        </div>
+
+        <div class="grid" id="projectGrid"></div>
+
+        <div class="footer">
+            <p>Olinethra | Case Studies & Production Architecture</p>
+            <p>All modules consolidated and indexed</p>
+        </div>
+    </div>
+
+    <script>
+        const modules = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+        const grid = document.getElementById('projectGrid');
+
+        modules.forEach(module => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <h3>Module ${module}</h3>
+                <img src="${module}_screen.png" alt="Module ${module} Screenshot" class="screenshot-preview" onerror="this.style.display='none'">
+                <p>Code and documentation for Module ${module}</p>
+                <a href="${module}_code.html" class="card-link">View Code →</a>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>

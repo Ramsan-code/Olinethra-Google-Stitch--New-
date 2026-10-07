@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>Olinethra | Internal Systems &amp; Engineering Operations Console</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
+    ::-webkit-scrollbar { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004fcb",
+            "primary-container": "#0265ff",
+            "on-primary": "#ffffff",
+            "secondary": "#a33e00",
+            "secondary-container": "#fe6a17",
+            "on-secondary": "#ffffff",
+            "tertiary": "#006178",
+            "tertiary-container": "#007c98",
+            "on-tertiary": "#ffffff",
+            "background": "#faf8ff",
+            "surface": "#faf8ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "surface-container": "#ebedfc",
+            "surface-container-high": "#e5e7f6",
+            "on-surface": "#171b26",
+            "on-surface-variant": "#424656",
+            "outline": "#727687",
+            "outline-variant": "#c2c6d8"
+          },
+          fontFamily: {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "code-sm": ["Inter"],
+            "label-md": ["Inter"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary selection:text-white flex min-h-screen">
+<!-- Left Sidebar Navigation -->
+<aside class="w-64 bg-surface-container-lowest border-r border-surface-container flex flex-col justify-between p-4 shrink-0 z-40">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-2.5 px-2">
+<img alt="Olinethra logo" class="w-8 h-8 rounded-lg object-cover shadow-[0_0_12px_rgba(2,101,255,0.3)]" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-sm font-bold tracking-tight text-on-surface">OLINETHRA</span>
+<span class="font-code-sm text-[10px] text-tertiary uppercase tracking-wider -mt-1">ADMIN CONSOLE</span>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-1 text-xs font-semibold">
+<button class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary text-white transition-all text-left" onclick="switchAdminTab('overview', this)">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span>Operations Overview</span>
+</button>
+<button class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all text-left" onclick="switchAdminTab('users', this)">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span>Access &amp; RBAC Control</span>
+</button>
+<button class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all text-left" onclick="switchAdminTab('content', this)">
+<span class="material-symbols-outlined text-[18px]">article</span>
+<span>Case Studies &amp; CMS</span>
+</button>
+<button class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all text-left" onclick="switchAdminTab('telemetry', this)">
+<span class="material-symbols-outlined text-[18px]">monitoring</span>
+<span>Cluster Telemetry</span>
+</button>
+<button class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all text-left" onclick="switchAdminTab('inquiries', this)">
+<span class="material-symbols-outlined text-[18px]">inbox</span>
+<span>Incoming Inquiries</span>
+</button>
+</nav>
+</div>
+<!-- User Profile & Back to site -->
+<div class="flex flex-col gap-3 pt-4 border-t border-surface-container">
+<a class="flex items-center gap-2 text-xs text-primary font-semibold hover:underline px-2" href="index.html">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Back to Public Site</span>
+</a>
+<div class="flex items-center gap-2.5 p-2 rounded-xl bg-surface-container-low border border-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">EV</div>
+<div class="flex flex-col text-[11px] truncate">
+<span class="font-bold text-on-surface truncate">Dr. Elena Vance</span>
+<span class="text-outline truncate">Super-Admin (CTO)</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Administrative Area -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Top Action Bar -->
+<header class="h-16 bg-surface-container-lowest border-b border-surface-container px-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-xs font-code-sm text-outline">Production Mesh: <strong class="text-on-surface">k8s-us-east-1.live</strong></span>
+</div>
+<div class="flex items-center gap-4 text-xs">
+<span class="px-2.5 py-1 rounded-full bg-surface-container font-code-sm text-tertiary font-bold">API v2.4.0 (Healthy)</span>
+<button class="px-3 py-1.5 rounded-lg bg-secondary-container text-white font-semibold shadow-sm hover:opacity-90 transition-all flex items-center gap-1.5" onclick="alert('Cluster configuration synced across all 14 global nodes.');">
+<span class="material-symbols-outlined text-[16px]">cloud_sync</span>
+<span>Deploy Hotfix RFC</span>
+</button>
+</div>
+</header>
+<!-- Content Sections -->
+<div class="p-8 flex flex-col gap-8 max-w-7xl w-full mx-auto">
+<!-- TAB 1: OPERATIONS OVERVIEW -->
+<section class="admin-tab-content flex flex-col gap-8" id="tab-overview">
+<!-- 4 Metric KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-xs">
+<span>Weekly QPS Volume</span>
+<span class="material-symbols-outlined text-primary text-[18px]">speed</span>
+</div>
+<span class="font-headline-lg text-2xl font-bold text-on-surface">1.84 Billion</span>
+<span class="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">↑ +14.2% vs last week</span>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-xs">
+<span>Avg Global P99</span>
+<span class="material-symbols-outlined text-secondary-container text-[18px]">timer</span>
+</div>
+<span class="font-headline-lg text-2xl font-bold text-secondary-container">14.2ms</span>
+<span class="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">↓ -4.8ms improvement</span>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-xs">
+<span>Active Client Tenancies</span>
+<span class="material-symbols-outlined text-tertiary text-[18px]">hub</span>
+</div>
+<span class="font-headline-lg text-2xl font-bold text-on-surface">42 Enterprise</span>
+<span class="text-[11px] text-outline font-code-sm">100% SLA Adherence</span>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-xs">
+<span>Pending Inquiries</span>
+<span class="material-symbols-outlined text-primary text-[18px]">mark_email_unread</span>
+</div>
+<span class="font-headline-lg text-2xl font-bold text-primary">6 Triage Briefs</span>
+<span class="text-[11px] text-secondary font-semibold">2 NDA Signatures Req</span>
+</div>
+</div>
+<!-- Telemetry Graph + System Health Table -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Live Telemetry Area -->
+<div class="lg:col-span-8 p-6 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-base font-bold text-on-surface">Global Latency Distribution (Last 24h)</span>
+<span class="text-xs text-outline">Real-time edge telemetry aggregated from 14 regional nodes</span>
+</div>
+<div class="flex items-center gap-2 text-xs font-code-sm">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> US-East</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> EU-Central</span>
+</div>
+</div>
+<!-- SVG Interactive Line Graph -->
+<div class="w-full h-56 bg-surface-container-low rounded-xl p-4 flex items-end relative overflow-hidden border border-surface-container">
+<svg class="w-full h-full" fill="none" preserveaspectratio="none" viewbox="0 0 600 160">
+<!-- Grid Lines -->
+<line stroke="rgba(0,0,0,0.05)" stroke-width="1" x1="0" x2="600" y1="40" y2="40"></line>
+<line stroke="rgba(0,0,0,0.05)" stroke-width="1" x1="0" x2="600" y1="80" y2="80"></line>
+<line stroke="rgba(0,0,0,0.05)" stroke-width="1" x1="0" x2="600" y1="120" y2="120"></line>
+<!-- US-East curve -->
+<path d="M0,130 C100,110 200,120 300,80 C400,50 500,90 600,60" fill="none" stroke="#004fcb" stroke-width="3"></path>
+<!-- EU-Central curve -->
+<path d="M0,140 C120,130 220,100 320,110 C420,70 520,80 600,75" fill="none" stroke="#fe6a17" stroke-dasharray="4 4" stroke-width="2.5"></path>
+</svg>
+</div>
+<div class="grid grid-cols-3 gap-2 text-xs font-code-sm pt-2">
+<div class="p-3 rounded-lg bg-surface-container-low">
+<span class="text-outline block">Peak Throughput</span>
+<span class="font-bold text-on-surface">348,200 req/s</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low">
+<span class="text-outline block">Zero-Copy Buffer Hits</span>
+<span class="font-bold text-primary">99.98%</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low">
+<span class="text-outline block">Dropped Packets</span>
+<span class="font-bold text-emerald-600">0 (Nominal)</span>
+</div>
+</div>
+</div>
+<!-- Active Clusters Quick Status -->
+<div class="lg:col-span-4 p-6 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-sm text-base font-bold text-on-surface">Regional Cluster Nodes</h3>
+<span class="text-xs text-outline">Kubernetes Federation Mesh</span>
+</div>
+<div class="flex flex-col gap-2.5 text-xs">
+<div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-bold">us-east-1 (N. Virginia)</span>
+</div>
+<span class="font-code-sm text-outline">18.4ms</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-bold">eu-west-1 (London)</span>
+</div>
+<span class="font-code-sm text-outline">24.1ms</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-bold">ap-southeast-1 (Singapore)</span>
+</div>
+<span class="font-code-sm text-outline">21.8ms</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-bold">sa-east-1 (São Paulo)</span>
+</div>
+<span class="font-code-sm text-outline">32.0ms</span>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-surface-container text-xs font-semibold text-primary hover:bg-surface-container-high transition-colors" onclick="alert('Running synthetic canary packet probe across all regions...');">
+              Run Edge Canary Probe
+            </button>
+</div>
+</div>
+</section>
+<!-- TAB 2: ACCESS & RBAC -->
+<section class="admin-tab-content hidden flex-col gap-6" id="tab-users">
+<div class="flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg text-2xl font-bold text-on-surface">Role-Based Access Control (RBAC)</h2>
+<p class="text-xs text-on-surface-variant">Manage engineer permissions, multi-cloud cryptographic API keys, and deployment credentials.</p>
+</div>
+<button class="px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold shadow-sm hover:bg-primary-container transition-all" onclick="alert('Add Member dialog triggered.');">
+            + Add Engineering User
+          </button>
+</div>
+<!-- Users Table -->
+<div class="rounded-2xl bg-surface-container-lowest border border-surface-container overflow-hidden shadow-sm">
+<table class="w-full text-left text-xs">
+<thead class="bg-surface-container-low border-b border-surface-container text-outline font-semibold">
+<tr>
+<th class="p-4">Name &amp; Role</th>
+<th class="p-4">Access Scope</th>
+<th class="p-4">2FA / Security Key</th>
+<th class="p-4">Last Production Action</th>
+<th class="p-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr>
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-xs">EV</div>
+<div>
+<span class="font-bold text-on-surface block">Dr. Elena Vance</span>
+<span class="text-outline text-[11px]">elena@olinethra.dev</span>
+</div>
+</td>
+<td class="p-4"><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-700 font-bold text-[10px]">Super-Admin (K8s Root)</span></td>
+<td class="p-4"><span class="text-emerald-600 font-semibold">YubiKey 5C Hardware</span></td>
+<td class="p-4 font-code-sm text-outline">vLLM LoRA Weights Synced (12m ago)</td>
+<td class="p-4 text-right"><button class="text-primary hover:underline">Edit</button></td>
+</tr>
+<tr>
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container/10 text-secondary-container font-bold flex items-center justify-center text-xs">MR</div>
+<div>
+<span class="font-bold text-on-surface block">Marcus Reynolds</span>
+<span class="text-outline text-[11px]">marcus@olinethra.dev</span>
+</div>
+</td>
+<td class="p-4"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-[10px]">Distributed Core Admin</span></td>
+<td class="p-4"><span class="text-emerald-600 font-semibold">Hardware Key Active</span></td>
+<td class="p-4 font-code-sm text-outline">Kafka Partition Rebalance (2h ago)</td>
+<td class="p-4 text-right"><button class="text-primary hover:underline">Edit</button></td>
+</tr>
+<tr>
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary/10 text-tertiary font-bold flex items-center justify-center text-xs">SK</div>
+<div>
+<span class="font-bold text-on-surface block">Siddharth Kumar</span>
+<span class="text-outline text-[11px]">siddharth@olinethra.dev</span>
+</div>
+</td>
+<td class="p-4"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-[10px]">Cloud Mesh Architect</span></td>
+<td class="p-4"><span class="text-emerald-600 font-semibold">Hardware Key Active</span></td>
+<td class="p-4 font-code-sm text-outline">Terraform OpenTofu Apply (4h ago)</td>
+<td class="p-4 text-right"><button class="text-primary hover:underline">Edit</button></td>
+</tr>
+<tr>
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-xs">AN</div>
+<div>
+<span class="font-bold text-on-surface block">Arjun Nair</span>
+<span class="text-outline text-[11px]">arjun@olinethra.dev</span>
+</div>
+</td>
+<td class="p-4"><span class="px-2 py-0.5 rounded bg-amber-100 text-amber-700 font-bold text-[10px]">Frontend Release Lead</span></td>
+<td class="p-4"><span class="text-emerald-600 font-semibold">Hardware Key Active</span></td>
+<td class="p-4 font-code-sm text-outline">Next.js Edge Worker Deploy (1d ago)</td>
+<td class="p-4 text-right"><button class="text-primary hover:underline">Edit</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- TAB 3: CONTENT & CMS -->
+<section class="admin-tab-content hidden flex flex-col gap-6" id="tab-content">
+<div class="flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg text-2xl font-bold text-on-surface">Content Management: Case Studies &amp; RFCs</h2>
+<p class="text-xs text-on-surface-variant">Publish architectural whitepapers, case study metrics, and benchmark reports live to the website.</p>
+</div>
+<button class="px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold shadow-sm hover:bg-primary-container transition-all" onclick="alert('Create New RFC draft opened.');">
+            + Publish New RFC / Case Study
+          </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between gap-4">
+<div class="flex flex-col gap-2">
+<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold w-fit">STATUS: PUBLISHED (LIVE)</span>
+<h3 class="font-bold text-sm text-on-surface">FinScale Sub-Millisecond Multi-Asset Ledger</h3>
+<p class="text-xs text-on-surface-variant">High-throughput case study showing 0.8ms P99 latency and $4.2B volume throughput.</p>
+</div>
+<div class="flex items-center justify-between text-xs pt-3 border-t border-surface-container">
+<span class="text-outline">Views: 14.8k</span>
+<a class="text-primary font-bold hover:underline" href="project.html">View Page</a>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between gap-4">
+<div class="flex flex-col gap-2">
+<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold w-fit">STATUS: PUBLISHED (LIVE)</span>
+<h3 class="font-bold text-sm text-on-surface">RFC #204: Kafka to Rust-Native Memory Queues</h3>
+<p class="text-xs text-on-surface-variant">Technical dispatch on garbage collection elimination and zero-cost lock buffers.</p>
+</div>
+<div class="flex items-center justify-between text-xs pt-3 border-t border-surface-container">
+<span class="text-outline">Views: 28.2k</span>
+<a class="text-primary font-bold hover:underline" href="insights.html">View Page</a>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between gap-4">
+<div class="flex flex-col gap-2">
+<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold w-fit">STATUS: IN REVIEW</span>
+<h3 class="font-bold text-sm text-on-surface">Synthetic Vector Benchmark: Qdrant vs Pinecone</h3>
+<p class="text-xs text-on-surface-variant">Scheduled for publication in Q3 2026. Author: Dr. Elena Vance.</p>
+</div>
+<div class="flex items-center justify-between text-xs pt-3 border-t border-surface-container">
+<span class="text-outline">Draft v2</span>
+<button class="text-primary font-bold hover:underline" onclick="alert('Draft published to Insights feed.');">Publish Now</button>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB 4: TELEMETRY -->
+<section class="admin-tab-content hidden flex flex-col gap-6" id="tab-telemetry">
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg text-2xl font-bold text-on-surface">Cluster Telemetry &amp; Error Budget</h2>
+<p class="text-xs text-on-surface-variant">Real-time OpenTelemetry trace collector and SLO adherence logs.</p>
+</div>
+<div class="p-6 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-4 font-code-sm text-xs">
+<div class="flex items-center justify-between border-b border-surface-container pb-3">
+<span class="font-bold text-on-surface">Live Trace Ingestion (/api/v1/telemetry)</span>
+<span class="text-emerald-600">Buffer: 0 dropped spans</span>
+</div>
+<div class="flex flex-col gap-1 text-[11px] text-on-surface-variant font-mono">
+<div class="text-primary">[2026-10-18T14:22:01Z] [INFO] [citus-sharding-node-4] Query cost: 0.12ms | Rows: 4,800 | Status: OK</div>
+<div class="text-primary">[2026-10-18T14:22:02Z] [INFO] [vllm-inference-pod-09] Generation: 240 tokens | TTFT: 28.4ms | Grounding: 0.98</div>
+<div class="text-secondary-container">[2026-10-18T14:22:03Z] [WARN] [kafka-partition-7] Jitter threshold 22ms observed; auto-rebalancing worker pool</div>
+<div class="text-primary">[2026-10-18T14:22:04Z] [INFO] [anycast-bgp-router] Health check passed across 14 regions; SLA adherence 99.999%</div>
+</div>
+</div>
+</section>
+<!-- TAB 5: INCOMING INQUIRIES -->
+<section class="admin-tab-content hidden flex flex-col gap-6" id="tab-inquiries">
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg text-2xl font-bold text-on-surface">Client Briefs &amp; Architecture Inquiries</h2>
+<p class="text-xs text-on-surface-variant">Incoming submissions from the Public About / Schedule Consultation portals.</p>
+</div>
+<div class="flex flex-col gap-3">
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-bold text-sm text-on-surface">Dr. Elena Vance • Synthetix Dynamics</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-[10px] font-bold">INQ-9482</span>
+</div>
+<p class="text-xs text-on-surface-variant">Scope: High-concurrency distributed Go/Rust microservices for cross-border reconciliation.</p>
+<span class="text-[11px] text-outline">Budget: $50k - $100k • Submitted: Today 10:14 AM</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary-container" onclick="alert('Mutual NDA PDF generated and dispatched.');">Dispatch NDA</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-xs font-semibold text-on-surface hover:bg-surface-container-high" onclick="alert('Marked as triaged.');">Triage</button>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-bold text-sm text-on-surface">Sarah Lin • QuantEdge Global</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-[10px] font-bold">INQ-9481</span>
+</div>
+<p class="text-xs text-on-surface-variant">Scope: Multi-region Kubernetes failover and active-active Citus Postgres sharding.</p>
+<span class="text-[11px] text-outline">Budget: $100k+ • Submitted: Yesterday 4:20 PM</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary-container" onclick="alert('Mutual NDA PDF generated and dispatched.');">Dispatch NDA</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-xs font-semibold text-on-surface hover:bg-surface-container-high" onclick="alert('Marked as triaged.');">Triage</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+    function switchAdminTab(tabKey, btn) {
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.className = 'nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all text-left';
+      });
+      btn.className = 'nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary text-white transition-all text-left';
+
+      document.querySelectorAll('.admin-tab-content').forEach(c => {
+        c.classList.add('hidden');
+        c.classList.remove('flex');
+      });
+
+      const target = document.getElementById('tab-' + tabKey);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('flex');
+      }
+    }
+  </script>
+</body>
+</html>
